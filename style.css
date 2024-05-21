@@ -1,0 +1,147 @@
+*{
+    border: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --hue: 223;
+    --hue1: 243;
+    --hue2: 303;
+    --bg: hs1(var(--hue),10%,5%);
+    --fg: hs1(var(--hue),10%,95%);
+    --primary: hs1(var(--hue),90%,50%);
+    --trans-dur: 0.3s;
+    font-size: calc(16px + (24 - 16) * (100vw - 320px) / (2560 - 320));
+}
+body{
+    background: #131416;
+    color: var(--fg);
+    display: flex;
+    font: 1em/1.5 sans-serif;
+    height: 100vh;
+    min-height: 375px;
+    transition: 
+        background-color var(--trans-dur),
+        color var(--trans-dur);
+}
+main{
+    margin: auto;
+    padding: 1.5em 0;
+}
+.clock{
+    --hrAngle: 0;
+    --minAngle: 0;
+    --secAngle: 0;
+    position: relative;
+    width: 16em;
+    height: 16em;
+}
+.clock::before,
+.clock::after,
+.clock_ticks,
+.clock_tick,
+.clock_hands,
+.clock_hand{
+    position: absolute;
+}
+.clock::before,
+.clock::after{
+    border-radius: 50%;
+    box-shadow: 
+        0 0 0 0.25em hsl(var(--hue1), 90%, 95%) inset,
+        0 0 1.5em 0.5em hsla(var(--hue1), 90%, 50%,0.7) inset,
+        0 0 1.5em 0.25em hsla(var(--hue1), 90%, 50%, 0.7),
+        0 0 7.5em hsla(var(--hue1), 90%, 50%, 0.5) inset,
+        0 0 7.5em hsla(var(--hue1), 90%, 50%, 0.5);
+    content: "";
+    display: block;
+}
+.clock::before{
+    width: 100%;
+    height: 100%;
+}
+.clock::after{
+    inset: 8%;
+}
+.clock_ticks,
+.clock_hands{
+    z-index: 1;
+}.clock_ticks{
+    width: 100%;
+    height: 100%;
+}
+.clock_tick{
+    background-color: hsl(0, 0%, 95%);
+    border-radius: 0.2em;
+    box-shadow: 0 0 0.75em 0.25em hsl(0, 0%, 95%);
+    top: calc(50% - 0.6em);
+    left: calc(50% - 0.2em);
+    width: 0.4em;
+    height: 1.2em;
+    transform-origin: 50% 50%;
+}
+.clock_tick:nth-child(3n + 1){
+    border-radius: 0.375em;
+    box-shadow: 
+        0 0 0 0.25em hsl(0, 0%, 95%) inset,
+        0 0 0.75em 0.5em hsl(0, 0%, 50%, 0.7) inset,
+        0 0 0.75em 0.25em hsl(0, 0%, 50%, 0.7),
+        0 0 4.5em  hsl(0, 0%, 50%, 0.5);
+    top: calc(50% - 0.75em);
+    left: calc(50% - 0.375em);
+    width: 0.75em;
+    height: 1.5em;
+}
+.clock_tick:nth-child(1) { transform: translateY(-5.25em);}
+.clock_tick:nth-child(2) { transform: rotate(30deg) translateY(-5.25em);}
+.clock_tick:nth-child(3) { transform: rotate(60deg) translateY(-5.25em);}
+.clock_tick:nth-child(4) { transform: rotate(90deg) translateY(-5.25em);}
+.clock_tick:nth-child(5) { transform: rotate(120deg) translateY(-5.25em);}
+.clock_tick:nth-child(6) { transform: rotate(150deg) translateY(-5.25em);}
+.clock_tick:nth-child(7) { transform: rotate(180deg) translateY(-5.25em);}
+.clock_tick:nth-child(8) { transform: rotate(210deg) translateY(-5.25em);}
+.clock_tick:nth-child(9) { transform: rotate(240deg) translateY(-5.25em);}
+.clock_tick:nth-child(10) { transform: rotate(270deg) translateY(-5.25em);}
+.clock_tick:nth-child(11) { transform: rotate(300deg) translateY(-5.25em);}
+.clock_tick:nth-child(12) { transform: rotate(330deg) translateY(-5.25em);}
+
+.clock_hands{
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.25em hsl(var(--hue2), 90%, 95%) inset;
+    filter: 
+       drop-shadow(0 0 0 0.125em hsl(var(--hue2), 90%, 50%))
+       drop-shadow(0 0 0 0.75em hsl(var(--hue2), 90%, 50%));
+    top: calc(50% - 0.75em);
+    left: calc(50% - 0.75em);
+    width: 1.5em;
+    height: 1.5em;
+}
+.clock_hand{
+    bottom: 50%;
+    transform-origin: 50% 100%;
+}
+.clock_hand--h{
+    border-radius: 0.5em 0.5em 0 0;
+    box-shadow: 0 0 0 0.25em hsl(var(--hue2), 90%, 95%) inset;
+    left: calc(50% - 0.4em);
+    width: 0.8em;
+    height: 2.5em;
+    transform: rotate(var(--hrAngle)) translateY(-0.5em);
+}
+.clock_hand--m{
+    border-radius: 0.5em 0.5em 0 0;
+    box-shadow: 0 0 0 0.25em hsl(var(--hue2), 90%, 95%) inset;
+    left: calc(50% - 0.4em);
+    width: 0.8em;
+    height: 3.75em;
+    transform: rotate(var(--minAngle)) translateY(-0.5em);
+}
+.clock_hand--s{
+    background-color: hsl(var(--hue2), 90%, 95%);
+    border-radius: 0.2em 0.2em 0 0;
+    left: calc(50% - 0.2em);
+    width: 0.4em;
+    height: 3.75em;
+    transform: rotate(var(--secAngle)) translateY(-0.5em);
+}
